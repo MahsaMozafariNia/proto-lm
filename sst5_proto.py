@@ -161,9 +161,8 @@ if __name__ == '__main__':
     trainer = pl.Trainer(
         max_epochs=args.max_epochs,
         accelerator="auto",
-        devices=args.num_gpu if torch.cuda.is_available() else None,
-        track_grad_norm=1,
-        strategy='ddp',
+        devices=args.num_gpu if torch.cuda.is_available() else 1,
+        strategy='auto',
         logger=tb_logger,
         callbacks=[checkpoint_callback]
     )

@@ -104,32 +104,54 @@ class proto_lm(pl.LightningModule):
 
 
     def hierarchical_attention_calculation(self, hidden_states):
-       #hidden states expected to be Batch X Length X Hidden
-       upsilon = torch.tanh(self.fc_word_level(hidden_states)) #still Batch X Length X Hidden
+        '''
+            ######## .m
+            # hidden_states.shape [64, 50, 1024] [bs, num_tokens, features]
+            # self.prototypes.shape [1000,1024]
+        '''
 
-       nu_stack = []
-       for i in range(upsilon.shape[0]): #for each instance in batch
-           nu_i = torch.mv(upsilon[i], self.W_nu.squeeze()) #calculate nu_t for each step, i call all the nu_t's together nu_i, as in nu's for the instance
-           nu_stack.append(nu_i)
-       nu_stack = torch.stack(nu_stack, dim=0) #Batch X Length
-       alphas = F.softmax(nu_stack, dim=1) #Batch X Length
+        #hidden states expected to be Batch X Length X Hidden
+        upsilon = torch.tanh(self.fc_word_level(hidden_states)) #still Batch X Length X Hidden
 
-       #calculate attention-weighted hidden states
-       all_S = []
-       for sample_alphas, sample_hidden in zip(alphas, hidden_states):
-           S_i = torch.mm(sample_alphas.unsqueeze(0), sample_hidden).squeeze(0)
-           all_S.append(S_i)
-       all_S = torch.stack(all_S, dim=0)
+        nu_stack = []
+        for i in range(upsilon.shape[0]): #for each instance in batch
+            nu_i = torch.mv(upsilon[i], self.W_nu.squeeze()) #calculate nu_t for each step, i call all the nu_t's together nu_i, as in nu's for the instance
+            nu_stack.append(nu_i)
+        nu_stack = torch.stack(nu_stack, dim=0) #Batch X Length
+        alphas = F.softmax(nu_stack, dim=1) #Batch X Length
 
-       all_sims = []
-       for S_i in all_S:
-           diff_i = S_i - self.prototypes
-           diff_i_sqrd = diff_i.pow(2)
-           diff_i_summed = diff_i_sqrd.sum(dim=1)
-           sim_i = 1 / (diff_i_summed.sqrt() + self.hparams.dist_eps)
-           all_sims.append(sim_i)
-       all_sims = torch.stack(all_sims, dim=0) #Batch x num_prototypes
-       return alphas, all_S, all_sims
+        #    #calculate attention-weighted hidden states
+        #    all_S = []
+        #    for sample_alphas, sample_hidden in zip(alphas, hidden_states):
+        #        S_i = torch.mm(sample_alphas.unsqueeze(0), sample_hidden).squeeze(0)
+        #        all_S.append(S_i)
+        #    all_S = torch.stack(all_S, dim=0)
+        # all_sims = []
+        # for S_i in all_S:
+        #     diff_i = S_i - self.prototypes
+        #     diff_i_sqrd = diff_i.pow(2)
+        #     diff_i_summed = diff_i_sqrd.sum(dim=1)
+        #     sim_i = 1 / (diff_i_summed.sqrt() + self.hparams.dist_eps)
+        #     all_sims.append(sim_i)
+        # all_sims = torch.stack(all_sims, dim=0) #Batch x num_prototypes
+
+        token_exp = hidden_states.unsqueeze(2) # [BS, T, 1, D]
+        proto_exp = self.prototypes.unsqueeze(0).unsqueeze(0)  # [1, 1, P, D]
+        diff = token_exp - proto_exp               # [BS, T, P, D]
+        diff_sq = diff.pow(2)
+        # Distnce of each token with each prototype
+        dist = diff_sq.sum(dim=3).sqrt()   # [BS, T, P]
+        # Similarity of each token with each prototype
+        sim = 1 / (dist + self.hparams.dist_eps) 
+
+        alphas_exp = alphas.unsqueeze(2)  # [B, T, 1]
+
+        # Weighted similarity
+        weighted_sim = sim * alphas_exp  # [B, T, P]
+        # For each prototype, find the most similar token in a text
+        similarities, token_indices = weighted_sim.max(dim=1)  # [B, P]
+        # return alphas, all_S, all_sims
+        return alphas, similarities, token_indices
 
 
     def forward(self, **inputs):
@@ -139,12 +161,12 @@ class proto_lm(pl.LightningModule):
 
         llm_out = self.LLM(**inputs, output_hidden_states=True)
         last_hidden_states = llm_out.hidden_states[-1]
-        alphas, proto_hiddens, similarities = self.hierarchical_attention_calculation(last_hidden_states)
+        # alphas, proto_hiddens, similarities = self.hierarchical_attention_calculation(last_hidden_states)
+        alphas, similarities, token_indices = self.hierarchical_attention_calculation(last_hidden_states)
 
         # similiarities, sim_windows = get_sims_for_prototypes(hidden_states,self.prototypes, return_windows=self.hparams.analyze_mode)
         logits = self.dense(similarities)
         probs = F.softmax(logits, dim=1)
-
         out_dict = {
             'loss':None, #loss is calculated in another function
             'probs':probs,
@@ -152,7 +174,7 @@ class proto_lm(pl.LightningModule):
             'hidden_states':last_hidden_states,
             'llm_attention':llm_out, #can specificy attention here
             'alphas': alphas,
-            'proto_hiddens': proto_hiddens,
+            # 'proto_hiddens': proto_hiddens,
             'similarities': similarities
         }
 
