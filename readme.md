@@ -10,6 +10,7 @@ pytorch-lightning==1.7.7
 torchcluster==0.1.4
 torchmetrics==0.11.0
 tensorboard==2.10.1
+pip install datasets
 ```
 
 For each NLP task the code is provided in {TASK_NAME}_proto.py <br>
