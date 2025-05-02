@@ -26,7 +26,13 @@ class proto_lm(pl.LightningModule):
                  proto_training_weights=False,
                  ):
         super().__init__()
-        self.save_hyperparameters(ignore='pretrained_model')
+    
+        # if isinstance(betas, tuple):
+        #     betas = list(betas)
+        # self.save_hyperparameters(ignore='pretrained_model')
+        self.save_hyperparameters(ignore=['pretrained_model', 'betas'])
+        self.betas = betas
+        print('\n line 33')
 
         #get model obj
         self.LLM = pretrained_model
@@ -43,7 +49,7 @@ class proto_lm(pl.LightningModule):
         self.prototypes = nn.Parameter(torch.randn(size=(self.hparams.num_prototypes,
                                                          self.hidden_shape)),
                                        requires_grad=True)
-
+        
         #a vector to keep track of which prototype belongs to which class
         self.prototype_class_vec = torch.zeros(self.hparams.num_prototypes, self.hparams.num_classes)
         self.num_prototypes_per_class = self.hparams.num_prototypes // self.hparams.num_classes
@@ -134,13 +140,15 @@ class proto_lm(pl.LightningModule):
 
     def forward(self, **inputs):
         #in case the key 'labels' is part of the kwarg input, delete it, because it can't be handled by the base model
+        print('\n line 143')
         if 'labels' in inputs.keys():
             del inputs['labels']
-
+        print('\n line 142')
+        
         llm_out = self.LLM(**inputs, output_hidden_states=True)
         last_hidden_states = llm_out.hidden_states[-1]
         alphas, proto_hiddens, similarities = self.hierarchical_attention_calculation(last_hidden_states)
-
+        print('\n line 146')
         # similiarities, sim_windows = get_sims_for_prototypes(hidden_states,self.prototypes, return_windows=self.hparams.analyze_mode)
         logits = self.dense(similarities)
         probs = F.softmax(logits, dim=1)
@@ -166,7 +174,7 @@ class proto_lm(pl.LightningModule):
             ce_loss = self.l0 * F.mse_loss(logits, labels)
             labels = torch.zeros(size=labels.size()) #all examples belong to the "0" class, in case of regression
 
-        proto_lables = torch.argmax(self.prototype_class_vec, dim=1).cuda()
+        proto_lables = torch.argmax(self.prototype_class_vec, dim=1).to(self.prototypes.device)
         correct_class_sims = []
         for lab, sim in zip(labels, similarities):
             lab_mask = proto_lables == lab
@@ -232,7 +240,8 @@ class proto_lm(pl.LightningModule):
 
         if self.hparams.num_classes > 1: #classification
             #calculate some metrics
-            metrics_dict[f'{stage}_f1'] = tmfc.multiclass_f1_score(probs, labels, average='micro', num_classes=self.hparams.num_classes)
+            # metrics_dict[f'{stage}_f1'] = tmfc.multiclass_f1_score(probs, labels, average='micro', num_classes=self.hparams.num_classes)
+            metrics_dict[f'{stage}_f1'] = tmfc.f1_score(probs, labels, average='micro', num_classes=self.hparams.num_classes)
             metrics_dict[f'{stage}_precision'] = tmfc.multiclass_precision(probs, labels, average='micro', num_classes=self.hparams.num_classes)
             metrics_dict[f'{stage}_recall'] = tmfc.multiclass_recall(probs, labels, average='micro',  num_classes=self.hparams.num_classes)
             metrics_dict[f'{stage}_accuracy'] = tmfc.multiclass_accuracy(probs, labels, average='micro', num_classes=self.hparams.num_classes)
@@ -274,5 +283,6 @@ class proto_lm(pl.LightningModule):
 
     def configure_optimizers(self):
         """Prepare optimizer and schedule (linear warmup and decay)"""
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr, eps=self.hparams.optim_eps, betas=self.hparams.betas)
+        # optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr, eps=self.hparams.optim_eps, betas=self.hparams.betas)
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.hparams.lr, eps=self.hparams.optim_eps, betas=self.betas)
         return optimizer

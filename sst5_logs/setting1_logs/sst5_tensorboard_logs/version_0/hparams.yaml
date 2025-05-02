@@ -1,0 +1,13 @@
+analyze_mode: false
+cohsep_ratio: 1.0
+dist_eps: 1.0e-08
+hidden_shape: 1024
+lambda0: 0.5
+lambda1: 0.25
+lambda2: 0.25
+lr: 0.006
+max_seq_length: 50
+num_classes: 5
+num_prototypes: 1000
+optim_eps: 1.0e-08
+proto_training_weights: true
