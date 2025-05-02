@@ -240,8 +240,7 @@ class proto_lm(pl.LightningModule):
 
         if self.hparams.num_classes > 1: #classification
             #calculate some metrics
-            # metrics_dict[f'{stage}_f1'] = tmfc.multiclass_f1_score(probs, labels, average='micro', num_classes=self.hparams.num_classes)
-            metrics_dict[f'{stage}_f1'] = tmfc.f1_score(probs, labels, average='micro', num_classes=self.hparams.num_classes)
+            metrics_dict[f'{stage}_f1'] = tmfc.multiclass_f1_score(probs, labels, average='micro', num_classes=self.hparams.num_classes)
             metrics_dict[f'{stage}_precision'] = tmfc.multiclass_precision(probs, labels, average='micro', num_classes=self.hparams.num_classes)
             metrics_dict[f'{stage}_recall'] = tmfc.multiclass_recall(probs, labels, average='micro',  num_classes=self.hparams.num_classes)
             metrics_dict[f'{stage}_accuracy'] = tmfc.multiclass_accuracy(probs, labels, average='micro', num_classes=self.hparams.num_classes)
