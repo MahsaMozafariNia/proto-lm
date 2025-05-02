@@ -32,7 +32,6 @@ class proto_lm(pl.LightningModule):
         # self.save_hyperparameters(ignore='pretrained_model')
         self.save_hyperparameters(ignore=['pretrained_model', 'betas'])
         self.betas = betas
-        print('\n line 33')
 
         #get model obj
         self.LLM = pretrained_model
@@ -140,15 +139,12 @@ class proto_lm(pl.LightningModule):
 
     def forward(self, **inputs):
         #in case the key 'labels' is part of the kwarg input, delete it, because it can't be handled by the base model
-        print('\n line 143')
         if 'labels' in inputs.keys():
             del inputs['labels']
-        print('\n line 142')
         
         llm_out = self.LLM(**inputs, output_hidden_states=True)
         last_hidden_states = llm_out.hidden_states[-1]
         alphas, proto_hiddens, similarities = self.hierarchical_attention_calculation(last_hidden_states)
-        print('\n line 146')
         # similiarities, sim_windows = get_sims_for_prototypes(hidden_states,self.prototypes, return_windows=self.hparams.analyze_mode)
         logits = self.dense(similarities)
         probs = F.softmax(logits, dim=1)

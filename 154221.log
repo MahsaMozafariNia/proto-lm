@@ -1,0 +1,252 @@
+=====================================================
+/home/mozafarinia/Documents/proto-lm
+node-g105
+Fri May  2 11:35:29 EDT 2025
+=====================================================
+Running Adversarial CL Training
+INFO:    gocryptfs not found, will not be able to use gocryptfs
+15:4: not a valid test operator:  
+15:4: not a valid test operator: 12.4
+21:4: not a valid test operator: (
+21:4: not a valid test operator: 565.57.01
+
+=============
+== PyTorch ==
+=============
+
+NVIDIA Release 24.03 (build 85286408)
+PyTorch Version 2.3.0a0+40ec155e58
+Container image Copyright (c) 2024, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2014-2024 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+/usr/local/lib/python3.10/dist-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: libc10_hip.so: cannot open shared object file: No such file or directory
+  warn(f"Failed to load image Python extension: {e}")
+/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py:896: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Repo card metadata block was not found. Setting CardData to empty.
+args: Namespace(model_name='Unso/roberta-large-finetuned-sst5', max_seq_length=512, num_prototypes=1000, hidden_shape=1024, num_classes=5, cohsep_ratio=1.0, lambda0=0.2, lambda1=0.4, lambda2=0.4, lr=3e-06, proto_training_weights=1, batch_size=128, logger_dir='sst5_logs/setting1_logs', checkpoint_dir='sst5_logs/setting1_logs', config_subdir='0001', max_epochs=40, num_gpu=1, load_model='')
+
+CUDA available: True
+
+GPU name: NVIDIA A100-SXM4-40GB
+
+Number of GPUs available: 1
+torch version: 1.11.0+cu113
+cuda version: 11.3
+split is: train
+Map:   0%|          | 0/8544 [00:00<?, ? examples/s]Map:  12%|█▏        | 1000/8544 [00:00<00:01, 4179.36 examples/s]Map:  23%|██▎       | 2000/8544 [00:00<00:01, 5152.34 examples/s]Map:  35%|███▌      | 3000/8544 [00:00<00:01, 5328.31 examples/s]Map:  47%|████▋     | 4000/8544 [00:00<00:00, 5416.75 examples/s]Map:  59%|█████▊    | 5000/8544 [00:00<00:00, 5537.36 examples/s]Map:  70%|███████   | 6000/8544 [00:01<00:00, 5728.50 examples/s]Map:  82%|████████▏ | 7000/8544 [00:01<00:00, 5839.69 examples/s]Map:  94%|█████████▎| 8000/8544 [00:01<00:00, 5975.31 examples/s]Map: 100%|██████████| 8544/8544 [00:01<00:00, 5549.63 examples/s]
+self.columns: ['input_ids', 'attention_mask', 'labels']
+split is: validation
+Map:   0%|          | 0/1101 [00:00<?, ? examples/s]Map:  91%|█████████ | 1000/1101 [00:00<00:00, 6272.96 examples/s]Map: 100%|██████████| 1101/1101 [00:00<00:00, 5571.31 examples/s]
+self.columns: ['input_ids', 'attention_mask', 'labels']
+split is: test
+Map:   0%|          | 0/2210 [00:00<?, ? examples/s]Map:  45%|████▌     | 1000/2210 [00:00<00:00, 6584.85 examples/s]Map:  90%|█████████ | 2000/2210 [00:00<00:00, 6472.69 examples/s]Map: 100%|██████████| 2210/2210 [00:00<00:00, 6192.81 examples/s]
+/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py:896: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+self.columns: ['input_ids', 'attention_mask', 'labels']
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Multiprocessing is handled by SLURM.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+Repo card metadata block was not found. Setting CardData to empty.
+split is: train
+Map:   0%|          | 0/8544 [00:00<?, ? examples/s]Map:  12%|█▏        | 1000/8544 [00:00<00:01, 5575.92 examples/s]Map:  23%|██▎       | 2000/8544 [00:00<00:01, 6044.77 examples/s]Map:  35%|███▌      | 3000/8544 [00:00<00:00, 6249.98 examples/s]Map:  47%|████▋     | 4000/8544 [00:00<00:00, 4933.97 examples/s]Map:  59%|█████▊    | 5000/8544 [00:00<00:00, 5352.23 examples/s]Map:  70%|███████   | 6000/8544 [00:01<00:00, 5751.20 examples/s]Map:  82%|████████▏ | 7000/8544 [00:01<00:00, 5922.06 examples/s]Map:  94%|█████████▎| 8000/8544 [00:01<00:00, 6041.22 examples/s]Map: 100%|██████████| 8544/8544 [00:01<00:00, 5788.58 examples/s]
+self.columns: ['input_ids', 'attention_mask', 'labels']
+split is: validation
+Map:   0%|          | 0/1101 [00:00<?, ? examples/s]Map:  91%|█████████ | 1000/1101 [00:00<00:00, 5526.34 examples/s]Map: 100%|██████████| 1101/1101 [00:00<00:00, 5238.01 examples/s]
+self.columns: ['input_ids', 'attention_mask', 'labels']
+split is: test
+Map:   0%|          | 0/2210 [00:00<?, ? examples/s]Map:  45%|████▌     | 1000/2210 [00:00<00:00, 6098.10 examples/s]Map:  90%|█████████ | 2000/2210 [00:00<00:00, 6050.11 examples/s]Map: 100%|██████████| 2210/2210 [00:00<00:00, 5892.36 examples/s]
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/callbacks/model_checkpoint.py:616: UserWarning: Checkpoint directory sst5_logs/setting1_logs/0001) exists and is not empty.
+  rank_zero_warn(f"Checkpoint directory {dirpath} exists and is not empty.")
+self.columns: ['input_ids', 'attention_mask', 'labels']
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+
+  | Name          | Type         | Params
+-----------------------------------------------
+0 | LLM           | RobertaModel | 354 M 
+1 | fc_word_level | Linear       | 1.0 M 
+2 | dense         | Linear       | 5.0 K 
+-----------------------------------------------
+356 M     Trainable params
+0         Non-trainable params
+356 M     Total params
+1,425.559 Total estimated model params size (MB)
+2025-05-02 11:36:42.505045: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+SLURM auto-requeueing enabled. Setting signal handlers.
+Sanity Checking: 0it [00:00, ?it/s]/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:236: PossibleUserWarning: The dataloader, val_dataloader 0, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 256 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+Sanity Checking:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:   0%|          | 0/2 [00:00<?, ?it/s]Sanity Checking DataLoader 0:  50%|█████     | 1/2 [00:01<00:01,  1.02s/it]Sanity Checking DataLoader 0: 100%|██████████| 2/2 [00:01<00:00,  1.04it/s]/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('ce_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('cohesion_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('separation_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('val_prototype_grads', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('val_f1', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('val_precision', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('val_recall', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:535: PossibleUserWarning: It is recommended to use `self.log('val_accuracy', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+  warning_cache.warn(
+                                                                           /usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/connectors/data_connector.py:236: PossibleUserWarning: The dataloader, train_dataloader, does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` (try 256 which is the number of cpus on this machine) in the `DataLoader` init to improve performance.
+  rank_zero_warn(
+returned self batch size: 128
+Training: 0it [00:00, ?it/s]Training:   0%|          | 0/85 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/85 [00:00<?, ?it/s] Traceback (most recent call last):
+  File "/home/mozafarinia/Documents/proto-lm/sst5_proto.py", line 176, in <module>
+    trainer.fit(proto, datamodule=sst5_dm)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 696, in fit
+    self._call_and_handle_interrupt(
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 650, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 735, in _fit_impl
+    results = self._run(model, ckpt_path=self.ckpt_path)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 1166, in _run
+    results = self._run_stage()
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 1252, in _run_stage
+    return self._run_train()
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 1283, in _run_train
+    self.fit_loop.run()
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/loop.py", line 200, in run
+    self.advance(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/fit_loop.py", line 271, in advance
+    self._outputs = self.epoch_loop.run(self._data_fetcher)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/loop.py", line 200, in run
+    self.advance(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/epoch/training_epoch_loop.py", line 203, in advance
+    batch_output = self.batch_loop.run(kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/loop.py", line 200, in run
+    self.advance(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/batch/training_batch_loop.py", line 87, in advance
+    outputs = self.optimizer_loop.run(optimizers, kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/loop.py", line 200, in run
+    self.advance(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 201, in advance
+    result = self._run_optimization(kwargs, self._optimizers[self.optim_progress.optimizer_position])
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 248, in _run_optimization
+    self._optimizer_step(optimizer, opt_idx, kwargs.get("batch_idx", 0), closure)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 358, in _optimizer_step
+    self.trainer._call_lightning_module_hook(
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 1550, in _call_lightning_module_hook
+    output = fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/core/module.py", line 1705, in optimizer_step
+    optimizer.step(closure=optimizer_closure)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/core/optimizer.py", line 168, in step
+    step_output = self._strategy.optimizer_step(self._optimizer, self._optimizer_idx, closure, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/strategies/ddp.py", line 289, in optimizer_step
+    optimizer_output = super().optimizer_step(optimizer, opt_idx, closure, model, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/strategies/strategy.py", line 216, in optimizer_step
+    return self.precision_plugin.optimizer_step(model, optimizer, opt_idx, closure, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/plugins/precision/precision_plugin.py", line 153, in optimizer_step
+    return optimizer.step(closure=closure, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/optim/optimizer.py", line 88, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/optim/adam.py", line 100, in step
+    loss = closure()
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/plugins/precision/precision_plugin.py", line 138, in _wrap_closure
+    closure_result = closure()
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 146, in __call__
+    self._result = self.closure(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 132, in closure
+    step_output = self._step_fn()
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/loops/optimization/optimizer_loop.py", line 407, in _training_step
+    training_step_output = self.trainer._call_strategy_hook("training_step", *kwargs.values())
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/trainer/trainer.py", line 1704, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/strategies/ddp.py", line 352, in training_step
+    return self.model(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/parallel/distributed.py", line 963, in forward
+    output = self.module(*inputs[0], **kwargs[0])
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pytorch_lightning/overrides/base.py", line 79, in forward
+    output = self.module.training_step(*inputs, **kwargs)
+  File "/home/mozafarinia/Documents/proto-lm/ProtoLM.py", line 252, in training_step
+    outputs, metrics = self._shared_eval_step(stage='train', **batch)
+  File "/home/mozafarinia/Documents/proto-lm/ProtoLM.py", line 216, in _shared_eval_step
+    seq_class_out = self(**batch)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/mozafarinia/Documents/proto-lm/ProtoLM.py", line 145, in forward
+    llm_out = self.LLM(**inputs, output_hidden_states=True)
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/roberta/modeling_roberta.py", line 852, in forward
+    encoder_outputs = self.encoder(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/roberta/modeling_roberta.py", line 527, in forward
+    layer_outputs = layer_module(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/roberta/modeling_roberta.py", line 411, in forward
+    self_attention_outputs = self.attention(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/roberta/modeling_roberta.py", line 338, in forward
+    self_outputs = self.self(
+  File "/usr/local/lib/python3.10/dist-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/roberta/modeling_roberta.py", line 274, in forward
+    context_layer = torch.matmul(attention_probs, value_layer)
+RuntimeError: CUDA out of memory. Tried to allocate 256.00 MiB (GPU 0; 39.50 GiB total capacity; 37.10 GiB already allocated; 159.38 MiB free; 37.20 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+=====================================================
+Fri May  2 11:37:00 EDT 2025

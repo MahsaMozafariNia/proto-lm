@@ -11,7 +11,7 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers.tensorboard import TensorBoardLogger
 
 import datasets
-
+torch.cuda.empty_cache()
 
 class sst_datamodule(pl.LightningDataModule):
     loader_columns = [
@@ -115,7 +115,12 @@ parser.add_argument('-load_model', default='', type=str, help='to load a pretrai
 if __name__ == '__main__':
     args = parser.parse_args()
     print(f'args: {args}')
-
+    import torch
+    print("\nCUDA available:", torch.cuda.is_available())
+    print("\nGPU name:", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No GPU")
+    print("\nNumber of GPUs available:", torch.cuda.device_count())
+    print("torch version:", torch.__version__)
+    print("cuda version:", torch.version.cuda)
     # get data module
     sst5_dm = sst_datamodule(model_name_or_path=args.model_name,
                         max_seq_length=args.max_seq_length,
